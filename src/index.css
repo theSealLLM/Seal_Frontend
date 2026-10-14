@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* 다크 모드는 <html class="dark">로 전환한다 (시스템 · 라이트 · 다크 선택, useTheme). 처음 그리기 전에 index.html 스크립트가 붙인다 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 생성 중 본문 끝 커서. 움직임 줄이기 설정이면 깜빡이지 않는다.
+   마크다운 본문은 마지막 문단 · 마지막 목록 항목 끝에 ::after로 붙인다 (코드 블록 · 표 끝에는 붙이지 않음) */
+@layer components {
+  .typing-cursor,
+  .markdown-typing > :last-child:not(ul, ol, table, pre, div)::after,
+  .markdown-typing > :is(ul, ol):last-child > li:last-child::after {
+    content: "";
+    display: inline-block;
+    width: 0.5em;
+    height: 1.1em;
+    margin-left: 1px;
+    vertical-align: -0.2em;
+    background-color: currentColor;
+    opacity: 0.7;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .typing-cursor,
+    .markdown-typing > :last-child:not(ul, ol, table, pre, div)::after,
+    .markdown-typing > :is(ul, ol):last-child > li:last-child::after {
+      animation: typing-cursor-blink 1s steps(1, end) infinite;
+    }
+  }
+}
+
+@keyframes typing-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+    font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  }
+}
