@@ -5,8 +5,6 @@ Seal_LLM(고객 문의 분류 + 답변 초안) API를 부르는 채팅형 화면
 
 ## 1. 연결할 API (Seal_LLM 로컬 FastAPI)
 
-API는 `C:\Work\Seal_LLM\src\theseal\api` (로컬 전용, 커밋 안 함). 실행:
-
 ```
 Set-Location C:\Work\Seal_LLM; uv run uvicorn --app-dir src theseal.api.main:app --reload --port 8000
 ```
